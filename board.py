@@ -5,9 +5,6 @@ class Sudoku:
         self.board = None
         self.grid = None
         self.row = None
-        
-    
-    
     
     def initialize_board_grid(self):
         """Create board out of list of grids"""
@@ -18,7 +15,7 @@ class Sudoku:
         self.board = [self.row for _ in range(self.board_size * self.board_size)]
         
     def initialize_row(self):
-        self.row = [0 for _ in range(self.board_size * self.board_size)]
+        self.row = [_ + 1 for _ in range(self.board_size * self.board_size)]
         
     
     def initialize_grid(self):
@@ -34,26 +31,33 @@ class Sudoku:
         
         
     def get_row(self, row_num:int) -> list:
-        row = self.board
-        
-        return row
+        return self.board[row_num]
     
     def get_col(self, col_num:int) -> list:
-        col = []
+        col = [self.board[i][col_num] for i in range(len(self.board))]
         return col
     
-    def validate_num_row(self, num:int) -> bool:
-        ...
-        for i in range(self.board_size):
+    def get_grid(self) -> list:
+        current_grid = []
+        return current_grid
+    
+    def validate_num_row(self, num:int, row_num) -> bool:
+        """Validate if the current number is allowed in the row"""
+        if num in self.get_row(row_num):
+            return False
+        return True
             
-            ...
-            
-    def validate_num_col(self, num:int) -> bool:
-        ...
+    def validate_num_col(self, num:int, col_num) -> bool:
+        """Validate if the current numbers is allowed in the column"""
+        if num in self.get_col(col_num):
+            return False
+        return True
+    
+
     
     def validate_num_grid(self, num:int, grid_num:int) -> bool:
+        """validate if the current number is allowed in the current grid"""
         ...
-    
     def show_normal_board(self):
         if self.grid != None:
             print(self.board[0][0:3], "|",  self.board[1][0:3], "|",  self.board[2][0:3])
@@ -86,6 +90,7 @@ if __name__ == "__main__":
     sudoku_test = Sudoku()
     sudoku_test.create_board_from_rows()
     sudoku_test.show_normal_board()
+    print(sudoku_test.get_row(0))
     
     print()
     
