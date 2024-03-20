@@ -28,6 +28,12 @@ class Sudoku:
     def create_board_from_rows(self):
         self.initialize_row()
         self.initialize_board_row()
+
+    def calculate_grid_number(self, x, y):
+        print(self.board_size / x)
+        x_percent = x / (self.board_size * self.board_size) * 3
+        return x_percent
+        # if the x is 0-2 and y is 0-2 then grid is 0
         
         
     def get_row(self, row_num:int) -> list:
@@ -91,6 +97,5 @@ if __name__ == "__main__":
     sudoku_test.create_board_from_rows()
     sudoku_test.show_normal_board()
     print(sudoku_test.get_row(0))
-    
-    print()
+    print(sudoku_test.calculate_grid_number(6,3))
     
