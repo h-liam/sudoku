@@ -4,23 +4,34 @@ class Sudoku:
         self.board_size = board_size
         self.board = None
         self.grid = None
+        self.row = None
         
     
     
     
-    def initialize_board(self):
+    def initialize_board_grid(self):
+        """Create board out of list of grids"""
         self.board = [self.grid] * self.board_size * self.board_size
+    
+    def initialize_board_row(self):
+        """Create board out of list of rows"""
+        self.board = [self.row for _ in range(self.board_size * self.board_size)]
         
+    def initialize_row(self):
+        self.row = [0 for _ in range(self.board_size * self.board_size)]
+        
+    
     def initialize_grid(self):
         self.grid = list(range(1, self.grid_size * self.grid_size + 1))
         
-    def create_board(self):
+    def create_board_from_grids(self):
         self.initialize_grid()
-        self.initialize_board()
+        self.initialize_board_grid()
+    
+    def create_board_from_rows(self):
+        self.initialize_row()
+        self.initialize_board_row()
         
-    def show_board(self):
-        # this funciton will print the board regardless of its size
-        ...
         
     def get_row(self, row_num:int) -> list:
         row = self.board
@@ -44,18 +55,27 @@ class Sudoku:
         ...
     
     def show_normal_board(self):
-        print(self.board[0][0:3], "|",  self.board[1][0:3], "|",  self.board[2][0:3])
-        print(self.board[0][3:6], "|",  self.board[1][3:6], "|",  self.board[2][3:6])
-        print(self.board[0][6:9], "|",  self.board[1][6:9], "|",  self.board[2][6:9])
-        print("", "-"*30)
-        print(self.board[3][0:3], "|",  self.board[4][0:3], "|",  self.board[5][0:3])
-        print(self.board[3][3:6], "|",  self.board[4][3:6], "|",  self.board[5][3:6])
-        print(self.board[3][6:9], "|",  self.board[4][6:9], "|",  self.board[5][6:9])
-        print("", "-"*30)
-        print(self.board[6][0:3], "|",  self.board[7][0:3], "|",  self.board[8][0:3])
-        print(self.board[6][3:6], "|",  self.board[7][3:6], "|",  self.board[8][3:6])
-        print(self.board[6][6:9], "|",  self.board[7][6:9], "|",  self.board[8][6:9])  
-            
+        if self.grid != None:
+            print(self.board[0][0:3], "|",  self.board[1][0:3], "|",  self.board[2][0:3])
+            print(self.board[0][3:6], "|",  self.board[1][3:6], "|",  self.board[2][3:6])
+            print(self.board[0][6:9], "|",  self.board[1][6:9], "|",  self.board[2][6:9])
+            print("", "-"*30)
+            print(self.board[3][0:3], "|",  self.board[4][0:3], "|",  self.board[5][0:3])
+            print(self.board[3][3:6], "|",  self.board[4][3:6], "|",  self.board[5][3:6])
+            print(self.board[3][6:9], "|",  self.board[4][6:9], "|",  self.board[5][6:9])
+            print("", "-"*30)
+            print(self.board[6][0:3], "|",  self.board[7][0:3], "|",  self.board[8][0:3])
+            print(self.board[6][3:6], "|",  self.board[7][3:6], "|",  self.board[8][3:6])
+            print(self.board[6][6:9], "|",  self.board[7][6:9], "|",  self.board[8][6:9])  
+        else:
+            for row in self.board:
+                print(*row)   
+                
+                
+ 
+    def show_board(self):
+        # this funciton will print the board regardless of its size
+        ...
         
         
         
@@ -64,7 +84,8 @@ class Sudoku:
 
 if __name__ == "__main__":
     sudoku_test = Sudoku()
-    sudoku_test.create_board()
+    sudoku_test.create_board_from_rows()
     sudoku_test.show_normal_board()
-    print(sudoku_test.board)
+    
+    print()
     
