@@ -105,6 +105,29 @@ class Sudoku:
     def show_board(self):
         # this funciton will print the board regardless of its size
         ...
+    
+    def show_row_board(self):
+        """
+        This function prints the contents of self.board in a formatted way representing a Sudoku board.
+        """
+        grid_size = self.board_size // (self.board_size // 3)  # Get the size of a sub-grid (e.g., 3 for 9x9)
+        box_line = "+".join(["-" * (grid_size * 2) for _ in range(self.board_size // 3 + 1)]) + "+"
+
+        # Loop through each row in the board
+        for row in self.board:
+            # Print the separator line at the beginning of each grid row
+            if row == self.board[0] or (self.board.index(row) % grid_size == 0):
+                print(box_line)
+            
+            # Print each element in the row with appropriate spacing and box separators
+            for i, element in enumerate(row):
+                end = " | " if (i + 1) % grid_size != 0 else " |"
+                print("{:^2}".format(element if element != 0 else " "), end=end)
+            print()  # Print a newline after each row
+
+        # Print the final separator line
+        print(box_line)
+
         
         
         
@@ -114,7 +137,7 @@ class Sudoku:
 if __name__ == "__main__":
     sudoku_test = Sudoku(grid_size=3, board_size=3)
     sudoku_test.create_board_from_rows()
-    sudoku_test.show_normal_board()
+    sudoku_test.show_row_board()
     print(sudoku_test.get_row(0))
     print("grid Num:", sudoku_test.calculate_grid_number(4,1))
     print("test_grid", sudoku_test.get_grid(3))
