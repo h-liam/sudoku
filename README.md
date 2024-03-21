@@ -8,4 +8,4 @@ Fig 1: Grid - Board Layout
 ![Grid Board](./grid_board_layout.png "grid and board layout")
 
 Fig 2: Row-Board Layout
-![Row Board](./grid_board_layout.png)
+![Row Board](./row_grid_board_layout.png)

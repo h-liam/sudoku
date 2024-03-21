@@ -30,11 +30,15 @@ class Sudoku:
         self.initialize_board_row()
 
     def calculate_grid_number(self, x, y):
-        print(self.board_size / x)
-        x_percent = x / (self.board_size * self.board_size) * 3
-        return x_percent
-        # if the x is 0-2 and y is 0-2 then grid is 0
+        # Works for 9*9 boards, Not sure if it works for different size boards. 
+        x_percent = x / (self.board_size * self.board_size) * self.board_size
+        x_percent = x_percent.__ceil__()
+        y_percent = y / (self.board_size * self.board_size) * self.board_size
         
+        grid_number = (x_percent + (y_percent.__floor__() * self.board_size))-1
+        return grid_number
+        # if the x is 0-2 and y is 0-2 then grid is 0
+        # if the y is 0-2 it should be plus 0, if 
         
     def get_row(self, row_num:int) -> list:
         return self.board[row_num]
@@ -43,9 +47,22 @@ class Sudoku:
         col = [self.board[i][col_num] for i in range(len(self.board))]
         return col
     
-    def get_grid(self) -> list:
-        current_grid = []
-        return current_grid
+    def get_grid(self, grid_num) -> list:
+        # for now this function only does 9x9 boards
+        
+        
+        row_start = (grid_num // 3) * 3
+        col_start = (grid_num % 3) * 3
+        
+        # Initialize an empty list to store the grid elements
+        grid_elements = []
+        
+        # Loop through each row in the grid
+        for row in range(row_start, row_start + 3):
+            # Extract the elements for this row based on the calculated column indices
+            grid_elements.extend(self.board[row][col_start:col_start + 3])
+        
+        return grid_elements
     
     def validate_num_row(self, num:int, row_num) -> bool:
         """Validate if the current number is allowed in the row"""
@@ -60,10 +77,12 @@ class Sudoku:
         return True
     
 
-    
     def validate_num_grid(self, num:int, grid_num:int) -> bool:
         """validate if the current number is allowed in the current grid"""
-        ...
+        if num in self.get_grid(grid_num):
+            return False
+        return True
+        
     def show_normal_board(self):
         if self.grid != None:
             print(self.board[0][0:3], "|",  self.board[1][0:3], "|",  self.board[2][0:3])
@@ -93,9 +112,11 @@ class Sudoku:
 
 
 if __name__ == "__main__":
-    sudoku_test = Sudoku()
+    sudoku_test = Sudoku(grid_size=3, board_size=3)
     sudoku_test.create_board_from_rows()
     sudoku_test.show_normal_board()
     print(sudoku_test.get_row(0))
-    print(sudoku_test.calculate_grid_number(6,3))
+    print("grid Num:", sudoku_test.calculate_grid_number(4,1))
+    print("test_grid", sudoku_test.get_grid(3))
+    
     
