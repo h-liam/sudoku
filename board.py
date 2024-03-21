@@ -12,10 +12,10 @@ class Sudoku:
     
     def initialize_board_row(self):
         """Create board out of list of rows"""
-        self.board = [self.row for _ in range(self.board_size * self.board_size)]
+        self.board = [self.initialize_row() for _ in range(self.board_size * self.board_size)]
         
     def initialize_row(self):
-        self.row = [_ + 1 for _ in range(self.board_size * self.board_size)]
+        return [_ + 1 for _ in range(self.board_size * self.board_size)]
         
     
     def initialize_grid(self):
@@ -26,7 +26,6 @@ class Sudoku:
         self.initialize_board_grid()
     
     def create_board_from_rows(self):
-        self.initialize_row()
         self.initialize_board_row()
 
     def calculate_grid_number(self, x, y):
@@ -127,6 +126,14 @@ class Sudoku:
 
         # Print the final separator line
         print(box_line)
+        
+    
+    def insert_number(self, x,y, number):
+        if number > pow(self.board_size, 2):
+            print("Wrong")
+            return 0
+        self.board[x][y] = number
+        
 
         
         
@@ -138,8 +145,8 @@ if __name__ == "__main__":
     sudoku_test = Sudoku(grid_size=3, board_size=3)
     sudoku_test.create_board_from_rows()
     sudoku_test.show_row_board()
-    print(sudoku_test.get_row(0))
-    print("grid Num:", sudoku_test.calculate_grid_number(4,1))
-    print("test_grid", sudoku_test.get_grid(3))
+    print()
+    sudoku_test.insert_number(1,1,4)
+    sudoku_test.show_row_board()
     
     
